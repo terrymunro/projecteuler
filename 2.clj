@@ -5,4 +5,11 @@
 		(lazy-seq (cons a (fib b (+ a b)))))
 	1 2))
 
-(reduce + (filter #(if (and (<= % 4000000) (even? %)) % nil) (take 35 fib-seq)))
+(defn less-than-4mil? [x]
+	(<= x 4000000))
+
+(reduce +
+	(filter
+		(fn [x]
+			(and (less-than-4mil? x) (even? x)))
+		(take 35 fib-seq)))
