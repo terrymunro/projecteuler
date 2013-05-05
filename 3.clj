@@ -2,7 +2,7 @@
 ;
 ; TDD style
 ; Admittedly cheated with the tests by copying from: http://vimeo.com/7762511
-; But it is a lot of fun building a function up nothing using tests along the way
+; But it was a lot of fun building a function up from nothing using tests along the way
 
 (ns com.terrymunro.euler
 	(:use clojure.test))
