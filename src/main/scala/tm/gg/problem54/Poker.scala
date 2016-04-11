@@ -101,7 +101,7 @@ object Poker {
           HandEvaluation(FullHouse, maxSet._1.id, sets.find(_._2.length == 2).head._1.id)
         else if (maxSet._2.length == 3)
           HandEvaluation(ThreeOfAKind, maxSet._1.id, sets.filter(_._2.length == 1).foldLeft(0)(_ + _._1.id))
-        else if (sets.size == 2 && maxSet._2.length == 2)
+        else if (sets.count(p = _._2.length > 1) == 2 && maxSet._2.length == 2)
           HandEvaluation(TwoPair, sets.filter(_._2.length > 1).foldLeft(0)(_ + _._1.id), sets.find(_._2.length == 1).head._1.id)
         else
           HandEvaluation(OnePair, maxSet._1.id, sets.filter(_._1 != maxSet._1).foldLeft(0)(_ + _._1.id))
