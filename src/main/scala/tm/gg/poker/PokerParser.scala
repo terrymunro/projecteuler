@@ -1,6 +1,4 @@
-package tm.gg.problem54
-
-import Poker._
+package tm.gg.poker
 
 /**
   * Poker Parser
@@ -20,7 +18,7 @@ class PokerParser {
 
   def parseCard(input: String): Card = {
     val trimmedInput = input.trim()
-    require(trimmedInput.size == 2)
+    require(trimmedInput.length == 2)
 
     Card(
       CardSuit.withName(input.charAt(1).toString),
@@ -36,11 +34,6 @@ class PokerParser {
   }
 
   def parseFromFile(file: String): Traversable[Traversable[Hand]] = {
-//    tm.gg.io.using(getClass.getResourceAsStream(file)) { stream =>
-//      tm.gg.io.using(io.Source.fromInputStream(stream)) { source =>
-//        source.getLines.map(parse).toTraversable
-//      }
-//    }
     val stream = getClass.getResourceAsStream(file)
     io.Source.fromInputStream(stream).getLines.map(parse).toTraversable
   }

@@ -10,6 +10,6 @@ lazy val root = (project in file(".")).
       "-unchecked"
     ),
     libraryDependencies ++= Seq(
-      "org.specs2" %% "specs2-core" % "3.7.2" % Test
+      "org.specs2" %% "specs2-core" % "3.7.2" % Test withSources() withJavadoc()
     )
   )

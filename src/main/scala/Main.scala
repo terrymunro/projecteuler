@@ -1,4 +1,4 @@
-import tm.gg.problem54.{Poker, PokerParser}
+import tm.gg.poker._
 
 /**
   * Main
@@ -11,7 +11,7 @@ object Main {
     val parser = new PokerParser
     val hands = parser.parseFromFile("/p054_poker.txt")
     val totalWinner = hands.foldLeft((0, 0)) { (acc, hands) =>
-      val winner = Poker.evaluate(hands.toSeq: _*)
+      val winner = evaluate(hands.toSeq: _*)
       if (hands.head.compare(winner.head) == 0)
         (acc._1 + 1, acc._2)
       else if (hands.tail.head.compare(winner.head) == 0)

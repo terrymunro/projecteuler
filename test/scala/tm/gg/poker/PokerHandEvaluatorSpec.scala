@@ -1,8 +1,7 @@
-package tm.gg.problem54
+package tm.gg.poker
 
-import Poker.CardSuit._
-import Poker.CardValue._
-import Poker._
+import CardSuit._
+import CardValue._
 import org.specs2.mutable.Specification
 
 /**
@@ -49,7 +48,7 @@ class PokerHandEvaluatorSpec extends Specification {
           Card(Hearts, Queen)
         ))
 
-        val winner = Poker.evaluate(player1Hand, player2Hand)
+        val winner = evaluate(player1Hand, player2Hand)
         winner must contain(exactly(player1Hand))
       }
 
@@ -68,7 +67,7 @@ class PokerHandEvaluatorSpec extends Specification {
           Card(Spades, Jack),
           Card(Hearts, Ace)
         ))
-        val winner = Poker.evaluate(player1Hand, player2Hand)
+        val winner = evaluate(player1Hand, player2Hand)
         winner must contain(exactly(player2Hand))
       }
 
@@ -87,7 +86,7 @@ class PokerHandEvaluatorSpec extends Specification {
           Card(Spades, Jack),
           Card(Hearts, Ace)
         ))
-        val winner = Poker.evaluate(player1Hand, player2Hand)
+        val winner = evaluate(player1Hand, player2Hand)
         winner must contain(exactly(player1Hand))
       }
 
@@ -106,7 +105,7 @@ class PokerHandEvaluatorSpec extends Specification {
           Card(Spades, Eight),
           Card(Clubs, Ten)
         ))
-        val winner = Poker.evaluate(player1Hand, player2Hand)
+        val winner = evaluate(player1Hand, player2Hand)
         winner must contain(exactly(player1Hand, player2Hand))
       }
     }
@@ -128,7 +127,7 @@ class PokerHandEvaluatorSpec extends Specification {
           Card(Hearts, Ace)
         ))
 
-        val winner = Poker.evaluate(player1Hand, player2Hand)
+        val winner = evaluate(player1Hand, player2Hand)
         winner must contain(exactly(player1Hand))
         winner.head.value.handType === HandType.OnePair
       }
@@ -136,7 +135,7 @@ class PokerHandEvaluatorSpec extends Specification {
       "higher pair vs lower pair" in {
         val p1 = parser.parseHand("5H 5C 6S 7S KD")
         val p2 = parser.parseHand("2C 3S 8S 8D TD")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p2))
       }
 
@@ -144,7 +143,7 @@ class PokerHandEvaluatorSpec extends Specification {
         val p1 = parser.parseHand("5H 9C 6S AS KD")
         val p2 = parser.parseHand("2C 3S 8S 8D JD")
         val p3 = parser.parseHand("2S 7S 8H 8C TD")
-        val winner = Poker.evaluate(p1, p2, p3)
+        val winner = evaluate(p1, p2, p3)
         winner must contain(exactly(p2))
       }
 
@@ -152,14 +151,14 @@ class PokerHandEvaluatorSpec extends Specification {
         val p1 = parser.parseHand("5H 9C 6S AS KD")
         val p2 = parser.parseHand("2C 7C 8S 8D JD")
         val p3 = parser.parseHand("2S 7S 8H 8C JH")
-        val winner = Poker.evaluate(p1, p2, p3)
+        val winner = evaluate(p1, p2, p3)
         winner must contain(exactly(p2,p3))
       }
 
       "two pair" in {
         val p1 = parser.parseHand("QD KH QS 2C 3S")
         val p2 = parser.parseHand("8S 8H 9H 9C JC")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p2))
         winner.head.value.handType === HandType.TwoPair
       }
@@ -167,14 +166,14 @@ class PokerHandEvaluatorSpec extends Specification {
       "two pair lower kicker" in {
         val p1 = parser.parseHand("AD AH 3S 3D 9S")
         val p2 = parser.parseHand("AS AC KH KD QS")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p2))
       }
 
       "two pair vs single pair" in {
         val p1 = parser.parseHand("KS KC 9S 6D 2C")
         val p2 = parser.parseHand("QH 9D 9H TS TC")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p2))
       }
     }
@@ -183,7 +182,7 @@ class PokerHandEvaluatorSpec extends Specification {
       "three of a kind" in {
         val p1 = parser.parseHand("AS AC KH KD QS")
         val p2 = parser.parseHand("2C 2H 2S 3D 9S")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p2))
         winner.head.value.handType === HandType.ThreeOfAKind
       }
@@ -191,14 +190,14 @@ class PokerHandEvaluatorSpec extends Specification {
       "three of a kind vs lower three of a kind" in {
         val p1 = parser.parseHand("3S 3C 3H 2D 8C")
         val p2 = parser.parseHand("2C 2H 2S 3D 9S")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p1))
       }
 
       "four of a kind" in {
         val p1 = parser.parseHand("AS AC AH 2D 2C")
         val p2 = parser.parseHand("3C 3H 3S 3D KS")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p2))
         winner.head.value.handType === HandType.FourOfAKind
       }
@@ -206,7 +205,7 @@ class PokerHandEvaluatorSpec extends Specification {
       "four of a kind vs lower four of a kind" in {
         val p1 = parser.parseHand("AS AC AH AD 2C")
         val p2 = parser.parseHand("3C 3H 3S 3D KS")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p1))
       }
     }
@@ -215,7 +214,7 @@ class PokerHandEvaluatorSpec extends Specification {
       "full house vs lesser" in {
         val p1 = parser.parseHand("AS AC AH 2D 2C")
         val p2 = parser.parseHand("6C 2H 3S 4D 5S")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p1))
         winner.head.value.handType === HandType.FullHouse
       }
@@ -223,14 +222,14 @@ class PokerHandEvaluatorSpec extends Specification {
       "full house vs greater" in {
         val p1 = parser.parseHand("AS AC AH 2D 2C")
         val p2 = parser.parseHand("6C 6H 6S 6D 5S")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p2))
       }
 
       "full house vs full house" in {
         val p1 = parser.parseHand("6C 6H 6S 5D 5S")
         val p2 = parser.parseHand("AS AC AH 2D 2C")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p2))
       }
     }
@@ -239,7 +238,7 @@ class PokerHandEvaluatorSpec extends Specification {
       "straight vs lesser" in {
         val p1 = parser.parseHand("AS AC KH 2D 2C")
         val p2 = parser.parseHand("AH 2H 3S 4D 5S")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p2))
         winner.head.value.handType === HandType.Straight
       }
@@ -247,14 +246,14 @@ class PokerHandEvaluatorSpec extends Specification {
       "straight vs greater" in {
         val p1 = parser.parseHand("9D TD AD 2D JD")
         val p2 = parser.parseHand("AH 2H 3S 4D 5S")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p1))
       }
 
       "straight vs straight" in {
         val p1 = parser.parseHand("TS JC QH KD AC")
         val p2 = parser.parseHand("AH 2H 3S 4D 5S")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         println(p2.lowestCard)
         println(p2.highestCard)
         winner must contain(exactly(p1))
@@ -263,7 +262,7 @@ class PokerHandEvaluatorSpec extends Specification {
       "low ace straight" in {
         val p1 = parser.parseHand("2S 3C 4H 5D 6C")
         val p2 = parser.parseHand("AH 2H 3S 4D 5S")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p1))
         winner.head.value.handType === HandType.Straight
       }
@@ -271,7 +270,7 @@ class PokerHandEvaluatorSpec extends Specification {
       "flush vs lesser" in {
         val p1 = parser.parseHand("9D TD AD 2D JD")
         val p2 = parser.parseHand("AH KH QS JD TS")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p1))
         winner.head.value.handType === HandType.Flush
       }
@@ -279,21 +278,21 @@ class PokerHandEvaluatorSpec extends Specification {
       "flush vs greater" in {
         val p1 = parser.parseHand("9D TD AD 2D JD")
         val p2 = parser.parseHand("AH 2H 2S 2C AS")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p2))
       }
 
       "flush vs flush" in {
         val p1 = parser.parseHand("9D TD AD 2D JD")
         val p2 = parser.parseHand("AS 3S 2S 9S QS")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p2))
       }
 
       "straight flush" in {
         val p1 = parser.parseHand("9D TD AD 2D JD")
         val p2 = parser.parseHand("AS 3S 2S 4S 5S")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p2))
         winner.head.value.handType === HandType.StraightFlush
       }
@@ -301,7 +300,7 @@ class PokerHandEvaluatorSpec extends Specification {
       "royal flush" in {
         val p1 = parser.parseHand("KD TD AD QD JD")
         val p2 = parser.parseHand("AS 3S 2S 4S 5S")
-        val winner = Poker.evaluate(p1, p2)
+        val winner = evaluate(p1, p2)
         winner must contain(exactly(p1))
         winner.head.value.handType === HandType.RoyalFlush
       }

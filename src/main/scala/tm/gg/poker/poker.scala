@@ -1,11 +1,11 @@
-package tm.gg.problem54
+package tm.gg
 
 /**
   * ProblemFiftyFour - https://projecteuler.net/problem=54
   *
   * @author Terence Munro <terry@zenkey.com.au>
   */
-object Poker {
+package object poker {
   object CardValue extends Enumeration {
     val Ace   = Value(4096, "A")
     val King  = Value(2048, "K")

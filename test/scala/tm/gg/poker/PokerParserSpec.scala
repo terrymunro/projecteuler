@@ -1,8 +1,7 @@
-package tm.gg.problem54
+package tm.gg.poker
 
-import tm.gg.problem54.Poker.CardSuit._
-import tm.gg.problem54.Poker.CardValue._
-import tm.gg.problem54.Poker._
+import CardSuit._
+import CardValue._
 import org.specs2.mutable.Specification
 
 /**
