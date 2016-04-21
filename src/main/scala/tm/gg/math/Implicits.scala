@@ -22,9 +22,8 @@ object Implicits {
             .map { case (n, ns) => (n, ns.size) }
         )
         .groupBy(_._1)
-        .foldLeft(1){ case (acc, (n, ns)) =>
-          acc * math.pow(n, ns.maxBy(_._2)._2).toInt
-        }
+        .foldLeft(1) { case (acc, (n, ns)) =>
+          acc * math.pow(n, ns.maxBy(_._2)._2).toInt }
 
     /**
       * https://projecteuler.net/problem=6
@@ -37,7 +36,7 @@ object Implicits {
       * Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
       */
     def sumOfSquares: Int =
-      range.foldLeft(0)(_ + math.pow(_, 2).toInt)
+      range.reduceLeft(_ + math.pow(_, 2).toInt)
 
     def squareOfSum: Int =
       math.pow(range.sum, 2).toInt
@@ -67,7 +66,7 @@ object Implicits {
       inner(n, 2, Nil)
     }
 
-    // TODO: Sieves buckets of sieves
+    // TODO: Sieves.. buckets and buckets of sieves
     def thPrime: Int = ???
     def ndPrime = thPrime
     def stPrime = thPrime

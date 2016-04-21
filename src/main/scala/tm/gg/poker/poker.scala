@@ -29,7 +29,7 @@ package object poker {
   }
   case class Card(suit: CardSuit.Value, value: CardValue.Value) extends Ordered[Card] {
     override def compare(that: Card): Int = (value.id compare that.value.id) * -1
-    override def toString: String = s"[${value}${suit}]"
+    override def toString: String = s"[$value$suit]"
   }
 
   object HandType extends Enumeration {
